@@ -8,8 +8,8 @@ public class ToDoMapper {
     public ToDo mapToDoDtoToEntity(ToDoDTO toDoDTO){
         ToDo toDoEntity = new ToDo();
         toDoEntity.setId(toDoDTO.getId());
-        toDoEntity.setTitle(toDoEntity.getTitle());
-        toDoEntity.setDescription(toDoEntity.getDescription());
+        toDoEntity.setTitle(toDoDTO.getTitle());
+        toDoEntity.setDescription(toDoDTO.getDescription());
         toDoEntity.setCompleted(toDoDTO.isCompleted());
         toDoEntity.setCreatedAt(toDoDTO.getCreatedAt());
         toDoEntity.setUpdatedAt(toDoDTO.getUpdatedAt());
@@ -20,6 +20,7 @@ public class ToDoMapper {
         ToDoDTO toDoDTO = new ToDoDTO();
         toDoDTO.setId(toDo.getId());
         toDoDTO.setTitle(toDo.getTitle());
+        toDoDTO.setDescription(toDo.getDescription());
         toDoDTO.setCompleted(toDo.isCompleted());
         toDoDTO.setCreatedAt(toDo.getCreatedAt());
         toDoDTO.setUpdatedAt(toDo.getUpdatedAt());

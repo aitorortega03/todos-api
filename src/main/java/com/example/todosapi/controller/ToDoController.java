@@ -1,6 +1,6 @@
 package com.example.todosapi.controller;
 
-import com.example.todosapi.data.entity.ToDo;
+import com.example.todosapi.data.dto.ToDoDTO;
 import com.example.todosapi.service.ToDoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,18 +19,18 @@ public class ToDoController {
     private ToDoService toDoService;
 
     @GetMapping("/")
-    public ResponseEntity<List<ToDo>> getAllToDos() {
+    public ResponseEntity<List<ToDoDTO>> getAllToDos() {
         return ResponseEntity.ok(toDoService.searchAllToDos());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ToDo> getToDoById(@PathVariable("id") Long id) {
-        Optional<ToDo> toDo = toDoService.searchToDoById(id);
+    public ResponseEntity<ToDoDTO> getToDoById(@PathVariable("id") Long id) {
+        Optional<ToDoDTO> toDo = toDoService.searchToDoById(id);
         return toDo.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("/")
-    public ResponseEntity<ToDo> addToDo(@RequestBody ToDo toDo) {
+    public ResponseEntity<ToDoDTO> addToDo(@RequestBody ToDoDTO toDo) {
         toDoService.saveNewToDo(toDo);
         URI location = fromCurrentRequest().path("/{id}")
                 .buildAndExpand(toDo.getId()).toUri();
@@ -38,8 +38,8 @@ public class ToDoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ToDo> updateToDo(@PathVariable("id") Long id, @RequestBody ToDo newToDo) {
-        ToDo toDoForDelete = toDoService.updateToDo(id, newToDo);
+    public ResponseEntity<ToDoDTO> updateToDo(@PathVariable("id") Long id, @RequestBody ToDoDTO newToDo) {
+        ToDoDTO toDoForDelete = toDoService.updateToDo(id, newToDo);
         if (toDoForDelete == null) {
             return ResponseEntity.notFound().build();
         }
@@ -47,8 +47,8 @@ public class ToDoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ToDo> deleteToDo(@PathVariable("id") Long id) {
-        ToDo toDoForDelete = toDoService.deleteToDoById(id);
+    public ResponseEntity<ToDoDTO> deleteToDo(@PathVariable("id") Long id) {
+        ToDoDTO toDoForDelete = toDoService.deleteToDoById(id);
         if (toDoForDelete == null) {
             return ResponseEntity.notFound().build();
         }
