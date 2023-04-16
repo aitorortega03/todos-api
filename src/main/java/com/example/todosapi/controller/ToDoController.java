@@ -1,7 +1,7 @@
 package com.example.todosapi.controller;
 
 import com.example.todosapi.data.dto.ToDoDTO;
-import com.example.todosapi.service.ToDoService;
+import com.example.todosapi.service.interfaces.IToDoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,7 @@ import static org.springframework.web.servlet.support.ServletUriComponentsBuilde
 @RequestMapping("/api/v1/todos")
 public class ToDoController {
     @Autowired
-    private ToDoService toDoService;
+    private IToDoService toDoService;
 
     @GetMapping("/")
     public ResponseEntity<List<ToDoDTO>> getAllToDos() {
